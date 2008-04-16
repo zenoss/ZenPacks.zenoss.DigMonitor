@@ -11,14 +11,15 @@
 #
 ###########################################################################
 
+from AccessControl import ClassSecurityInfo, Permissions
 
 import Products.ZenModel.RRDDataSource as RRDDataSource
-from AccessControl import ClassSecurityInfo, Permissions
+from Products.ZenModel.ZenPackPersistence import ZenPackPersistence
 from Products.ZenUtils.ZenTales import talesCompile, getEngine
 
-
-class DigMonitorDataSource(RRDDataSource.RRDDataSource):
+class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
     
+    ZENPACKID = 'ZenPacks.zenoss.DigMonitor'
     DIG_MONITOR = 'DigMonitor'
     
     sourcetypes = (DIG_MONITOR,)
