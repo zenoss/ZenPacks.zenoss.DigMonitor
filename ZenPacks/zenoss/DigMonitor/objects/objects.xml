@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <objects>
-<!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'rrdTemplates', 'NameServer') -->
-<object id='/zport/dmd/Devices/Server/rrdTemplates/NameServer' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'rrdTemplates', 'DigMonitor') -->
+<object id='/zport/dmd/Devices/Server/rrdTemplates/DigMonitor' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
 <property type="text" id="description" mode="w" >
 DNS query time template with 30 second threshold
 </property>
@@ -38,7 +38,7 @@ A
 60
 </property>
 <tomanycont id='datapoints'>
-<object id='time' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<object id='responsetime' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -52,7 +52,7 @@ True
 <tomanycont id='thresholds'>
 <object id='BrokenDNS' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="lines" id="dsnames" mode="w" >
-['dig_time']
+['dig_responsetime']
 </property>
 <property type="boolean" id="enabled" mode="w" >
 True
@@ -72,7 +72,7 @@ True
 </object>
 <object id='SlowDNS' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="lines" id="dsnames" mode="w" >
-['dig_time']
+['dig_responsetime']
 </property>
 <property type="boolean" id="enabled" mode="w" >
 True
@@ -118,7 +118,7 @@ False
 True
 </property>
 <tomanycont id='graphPoints'>
-<object id='time' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='responsetime' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 LINE
 </property>
@@ -138,7 +138,7 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-dig_time
+dig_responsetime
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
