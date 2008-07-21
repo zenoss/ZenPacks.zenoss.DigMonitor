@@ -16,6 +16,7 @@ from AccessControl import ClassSecurityInfo, Permissions
 import Products.ZenModel.RRDDataSource as RRDDataSource
 from Products.ZenModel.ZenPackPersistence import ZenPackPersistence
 from Products.ZenUtils.ZenTales import talesCompile, getEngine
+from Products.ZenUtils.Utils import binPath
 
 class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
     
@@ -78,7 +79,7 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
 
 
     def getCommand(self, context):
-        parts = ['check_dig']
+        parts = [binPath('check_dig')]
         if self.dnsServer:
             parts.append('-H %s' % self.dnsServer)
         if self.port:
@@ -91,8 +92,7 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
             parts.append('-t %d' % self.timeout)
 
         cmd = ' '.join(parts)
-        cmd = '$ZENHOME/libexec/' + \
-                    RRDDataSource.RRDDataSource.getCommand(self, context, cmd)
+        cmd = RRDDataSource.RRDDataSource.getCommand(self, context, cmd)
         return cmd
 
 
