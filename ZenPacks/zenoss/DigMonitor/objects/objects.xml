@@ -5,6 +5,9 @@
 <property type="text" id="description" mode="w" >
 DNS query time template with 30 second threshold
 </property>
+<property type="string" id="targetPythonClass" mode="w" >
+Products.ZenModel.Device
+</property>
 <tomanycont id='datasources'>
 <object id='dig' module='ZenPacks.zenoss.DigMonitor.datasources.DigMonitorDataSource' class='DigMonitorDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
