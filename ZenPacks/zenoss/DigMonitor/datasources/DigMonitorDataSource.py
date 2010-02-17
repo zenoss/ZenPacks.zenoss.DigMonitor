@@ -70,8 +70,12 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
 
     def getDescription(self):
         if self.sourcetype == self.DIG_MONITOR:
-            return self.ipAddress + self.hostname
-        return RRDDataSource.RRDDataSource.getDescription(self)
+            ipAddress = getattr(self, 'ipAddress', '')
+            hostname = getattr(self, 'hostname', '')
+            description = ipAddress + hostname
+        else:
+            description = RRDDataSource.RRDDataSource.getDescription(self)
+        return description
 
 
     def useZenCommand(self):
