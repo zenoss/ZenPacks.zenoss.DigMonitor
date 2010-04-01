@@ -27,7 +27,9 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
     sourcetype = DIG_MONITOR
 
     eventClass = '/Status/DNS'
-        
+    allRecordTypes = ['A', 'AAAA', 'CNAME', 'MX', 'NAPTR', 'NS',
+                      'PTR', 'SOA', 'SRV', 'SSHFP', 'TKEY', 'TXT']
+    
     dnsServer = '${dev/id}'
     port = 53
     recordName = 'zenoss.com' # todo
