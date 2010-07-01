@@ -42,6 +42,9 @@ A
 </property>
 <tomanycont id='datapoints'>
 <object id='time' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property type="text" id="zendoc" mode="w" >
+The amount of time it takes to respond to a command
+</property>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -54,6 +57,9 @@ True
 </tomanycont>
 <tomanycont id='thresholds'>
 <object id='BrokenDNS' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property type="text" id="zendoc" mode="w" >
+Alert sent if there is no response to the command
+</property>
 <property type="lines" id="dsnames" mode="w" >
 ['dig_time']
 </property>
@@ -74,6 +80,9 @@ True
 </property>
 </object>
 <object id='SlowDNS' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property type="text" id="zendoc" mode="w" >
+Alert sent if there is a slow response to the command
+</property>
 <property type="lines" id="dsnames" mode="w" >
 ['dig_time']
 </property>
