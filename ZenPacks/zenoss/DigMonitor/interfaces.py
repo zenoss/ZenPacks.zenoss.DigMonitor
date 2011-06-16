@@ -18,8 +18,8 @@ from Products.Zuul.utils import ZuulMessageFactory as _t
 class IDigMonitorDataSourceInfo(IRRDDataSourceInfo):
     timeout = schema.Int(title=_t(u'Timeout (seconds)'))
     cycletime = schema.Int(title=_t(u'Cycle Time (seconds)'))
-    dnsServer = schema.Text(title=_t(u'DNS Server'))
-    recordName = schema.Text(title=_t(u'Record Name'))
+    dnsServer = schema.TextLine(title=_t(u'DNS Server'))
+    recordName = schema.TextLine(title=_t(u'Record Name'))
     port = schema.Int(title=_t(u'Port'))
     recordType = schema.Choice(title=_t(u'Record Type'),
                                vocabulary="dnsMonitorRecordTypeVocabulary")
