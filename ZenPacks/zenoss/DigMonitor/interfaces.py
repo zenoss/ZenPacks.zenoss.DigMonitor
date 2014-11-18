@@ -21,3 +21,4 @@ class IDigMonitorDataSourceInfo(IRRDDataSourceInfo):
     port = schema.Int(title=_t(u'Port'))
     recordType = schema.Choice(title=_t(u'Record Type'),
                                vocabulary="dnsMonitorRecordTypeVocabulary")
+    tcp = schema.Bool(title=_t(u'Use TCP'))
