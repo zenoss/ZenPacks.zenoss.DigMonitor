@@ -32,6 +32,7 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
     recordName = 'zenoss.com' # todo
     recordType = 'A' #todo
     timeout = 60
+    tcp = False
 
     _properties = RRDDataSource.RRDDataSource._properties + (
         {'id':'dnsServer', 'type':'string', 'mode':'w'},
@@ -39,6 +40,7 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
         {'id':'recordName', 'type':'string', 'mode':'w'},
         {'id':'recordType', 'type':'string', 'mode':'w'},
         {'id':'timeout', 'type':'int', 'mode':'w'},
+        {'id':'tcp', 'type':'boolean', 'mode':'w'},
         )
         
     _relations = RRDDataSource.RRDDataSource._relations + (
@@ -87,6 +89,8 @@ class DigMonitorDataSource(ZenPackPersistence, RRDDataSource.RRDDataSource):
             parts.append('-H %s' % self.dnsServer)
         if self.port:
             parts.append('-p %d' % self.port)
+        if self.tcp:
+            parts.append('-A +tcp')
         if self.recordName:
             parts.append('-l %s' % self.recordName)
         if self.recordType:

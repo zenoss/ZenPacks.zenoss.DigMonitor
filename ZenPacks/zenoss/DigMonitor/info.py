@@ -27,6 +27,7 @@ class DigMonitorDataSourceInfo(RRDDataSourceInfo):
     port = ProxyProperty('port')
     recordName = ProxyProperty('recordName')
     recordType = ProxyProperty('recordType')
+    tcp = ProxyProperty('tcp')
     
     @property
     def testable(self):
