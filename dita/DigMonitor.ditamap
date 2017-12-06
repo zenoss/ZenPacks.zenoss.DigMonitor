@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map
+  PUBLIC "urn:pubid:zenoss.com:doctypes:dita:dtd:map" "map.dtd">
+<map>
+   <title>DigMonitor</title>
+   <topicref href="topics/DigMonitor.dita">
+      <topicref href="topics/DigMonitor_ref-Prerequisites.dita"/>
+      <topicref href="topics/DigMonitor_task-Enable-Monitoring.dita"/>
+      <topicref href="topics/DigMonitor_ref-Daemons.dita"/>
+   </topicref>
+</map>
