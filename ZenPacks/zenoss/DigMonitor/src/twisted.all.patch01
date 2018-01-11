@@ -1,0 +1,68 @@
+--- ./lib/python2.7/site-packages/twisted/names/dns.py
++++ ./lib/python2.7/site-packages/twisted/names/dns.py
+@@ -17,7 +17,7 @@
+     'A', 'A6', 'AAAA', 'AFSDB', 'CNAME', 'DNAME', 'HINFO',
+     'MAILA', 'MAILB', 'MB', 'MD', 'MF', 'MG', 'MINFO', 'MR', 'MX',
+     'NAPTR', 'NS', 'NULL', 'OPT', 'PTR', 'RP', 'SOA', 'SPF', 'SRV', 'TXT',
+-    'WKS',
++    'WKS', 'SSHFP',
+ 
+     'ANY', 'CH', 'CS', 'HS', 'IN',
+ 
+@@ -30,6 +30,7 @@
+     'Record_MG', 'Record_MINFO', 'Record_MR', 'Record_MX', 'Record_NAPTR',
+     'Record_NS', 'Record_NULL', 'Record_PTR', 'Record_RP', 'Record_SOA',
+     'Record_SPF', 'Record_SRV', 'Record_TXT', 'Record_WKS', 'UnknownRecord',
++    'Record_SSHFP',
+ 
+     'QUERY_CLASSES', 'QUERY_TYPES', 'REV_CLASSES', 'REV_TYPES', 'EXT_QUERIES',
+ 
+@@ -119,6 +120,7 @@
+ A6 = 38
+ DNAME = 39
+ OPT = 41
++SSHFP = 44
+ SPF = 99
+ 
+ QUERY_TYPES = {
+@@ -149,9 +151,38 @@
+     A6: 'A6',
+     DNAME: 'DNAME',
+     OPT: 'OPT',
+-    SPF: 'SPF'
++    SPF: 'SPF',
++    SSHFP: 'SSHFP',
+ }
+ 
++class Record_SSHFP(tputil.FancyEqMixin, tputil.FancyStrMixin):
++
++    TYPE = SSHFP
++
++    fancybasename = 'SSHFP'
++    compareAttributes = ('algorithm', 'fp_type', 'fingerprint', 'ttl')
++    showAttributes = ('algorithm',
++                      'fp_type',
++                      ('fingerprint', 'fingerprint', '%s'),
++                      'ttl')
++
++    def __init__(self, algorithm=0, fp_type=0, fingerprint='', ttl=None):
++        self.algorithm = int(algorithm)
++        self.fp_type = int(fp_type)
++        self.fingerprint = fingerprint
++        self.ttl = str2time(ttl)
++
++    def decode(self, strio, length = None):
++        r = struct.unpack('!BB', readPrecisely(strio, struct.calcsize('!BB')))
++        self.algorithm, self.fp_type = r
++        import codecs
++        if self.fp_type == 2:
++            self.fingerprint = codecs.encode(
++                readPrecisely(strio, struct.calcsize('!16H')), "hex").upper()            
++        else:
++            self.fingerprint = codecs.encode(
++                readPrecisely(strio, struct.calcsize('!10H')), "hex").upper()
++
+ IXFR, AXFR, MAILB, MAILA, ALL_RECORDS = range(251, 256)
+ 
+ # "Extended" queries (Hey, half of these are deprecated, good job)
+
